@@ -1,7 +1,9 @@
 import {initializeApp} from 'firebase/app'
 import {
-  getFirestore, collection, getDocs,
-  addDoc, deleteDoc, doc
+  getFirestore, collection, onSnapshot,
+  // getDocs,
+  addDoc, deleteDoc, doc, 
+  query, where
   } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -13,29 +15,41 @@ const firebaseConfig = {
   appId: "1:46930440223:web:d8e5947d849da9ec05252a"
   };
 
-// init firebase app
+// -------- init firebase app
 initializeApp(firebaseConfig);
 
-// init services
+// -------- init services
 const db = getFirestore();
 
-// collection ref
+// ------- collection ref
 const colRef = collection(db, 'books') 
 
-// get collection data
-getDocs(colRef)
-  .then((snapshot) => {
+// ------- queries
+const q = query(colRef, where("author", "==", "John Smith"))
+
+// ------- get collection data
+// getDocs(colRef)
+//   .then((snapshot) => { 
+//     let books = []
+//     snapshot.docs.forEach((doc) => {
+//       books.push({ ...doc.data(), id: doc.id })
+//     })
+//     console.log(books)
+// })
+//   .catch(err => {
+//     console.log(err.message)
+//   })
+
+// ------- real time collection data
+  onSnapshot(q, (snapshot) => {
     let books = []
     snapshot.docs.forEach((doc) => {
       books.push({ ...doc.data(), id: doc.id })
     })
     console.log(books)
-})
-  .catch(err => {
-    console.log(err.message)
   })
 
-// adding documents
+// ------- adding documents
 const addBookForm = document.querySelector('.add')
 addBookForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -50,7 +64,7 @@ addBookForm.addEventListener('submit', (e) => {
 })
 
 
-// deleting documents
+// ------- deleting documents
 const deleteBookForm = document.querySelector('.delete')
 deleteBookForm.addEventListener('submit', (e) => {
   e.preventDefault()
