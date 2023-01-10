@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myFirebase 9</title>
 
+    <link rel="icon" href="../src/images/J2_Large.png" />
+
     <link rel="stylesheet" href="../src/style.css">
 
     <script src="bundle.js" defer></script>
 </head>
 <body>
-    <h1>My Firebase 9 Demo</h1>
+    <h1>My Firebase 9 Demo</h1> 
 
     <form class="add">
         <label for="title">Title: </label>
@@ -26,7 +28,24 @@
         <label for="id">Document ID:</label>
         <input type="text" name="id" required>
 
-        <button >Delete Book</button>
+        <button >Delete Book</button> 
+    </form>
+
+    <form class="update">
+        <label for="id">Document id:</label>
+        <input type="text" name="id" required>
+
+        <button>Update Book</button>
+    </form>
+
+    <h2>Firebase Auth</h2>
+    <form class="signup">
+        <label for="email">email</label>
+        <input type="text" name="email">
+        <label for="password">password:</label>
+        <input type="password" name="password">
+
+        <button>Signup</button>
     </form>
 
 
